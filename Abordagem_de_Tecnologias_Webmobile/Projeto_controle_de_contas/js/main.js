@@ -1,7 +1,7 @@
 (function main() {
-  var obterElementos = function () {
-    var formReceita = document.getElementById('form-adicionar-receita');
-    var formDespesa = document.getElementById('form-adicionar-despesa');
+  const obterElementos = function () {
+    const formReceita = document.getElementById('form-adicionar-receita');
+    const formDespesa = document.getElementById('form-adicionar-despesa');
 
     return {
       cabecalho: {
@@ -30,10 +30,10 @@
     }
   }
 
-  var storeGenerica = function (chave) {
+  const storeGenerica = function (chave) {
     return {
       listar: function () {
-        var itens = localStorage.getItem(chave);
+        const itens = localStorage.getItem(chave);
 
         if (!itens) {
           return [];
@@ -47,24 +47,24 @@
     };
   }
 
-  var despesasStore = storeGenerica('despesas');
-  var receitasStore = storeGenerica('receitas');
+  const despesasStore = storeGenerica('despesas');
+  const receitasStore = storeGenerica('receitas');
    
-  var elementos = obterElementos();
+  const elementos = obterElementos();
 
-  var agrupar = function (itens, propriedade) {
+  const agrupar = function (itens, propriedade) {
     return itens.reduce(function (acumulador, item) {
       (acumulador[item[propriedade]] = acumulador[item[propriedade]] || []).push(item)
       return acumulador;
     }, {})
   }
 
-  var padLeft = function (numero, quantidade, caracter) {
+  const padLeft = function (numero, quantidade, caracter) {
     return Array(quantidade - String(numero).length + 1).join(caracter || '0') + numero;
   }
 
-  var formatarData = function (data) {
-    var dataFormatada = data;
+  const formatarData = function (data) {
+    let dataFormatada = data;
     if (typeof (data) == 'string') {
       dataFormatada = new Date(data)
     }
@@ -72,7 +72,7 @@
     return `${padLeft(dataFormatada.getDate(), 2)}/${padLeft(dataFormatada.getMonth(), 2)}`
   }
 
-  var ordernarPorDataMaisRecente = function (a, b) {
+  const ordernarPorDataMaisRecente = function (a, b) {
     if (new Date(b) < new Date(a)) {
       return -1;
     }
@@ -84,7 +84,7 @@
     return 0;
   }
 
-  var categorias = [
+  const categorias = [
     {
       identificador: 'lazer',
       descricao: 'Lazer',
@@ -106,21 +106,21 @@
       previsto: 500
     }  
   ];
-  var previstoDeReceitas = 4000;
+  const previstoDeReceitas = 4000;
 
-  var criarOpcaoCategoria = function (categoria) {
-    var elemento = document.createElement('option');
+  const criarOpcaoCategoria = function (categoria) {
+    const elemento = document.createElement('option');
     elemento.innerHTML = categoria.descricao;
     elemento.value = categoria.identificador;
     return elemento;
   }
-  var carregarSelectDeCategorias = function () {
+  const carregarSelectDeCategorias = function () {
     categorias.forEach(function (categoria) {
       elementos.despesa.form.categoria.appendChild(criarOpcaoCategoria(categoria));
     });
   }
 
-  var renderizarReceita = function (receita) {
+  const renderizarReceita = function (receita) {
     return `<tr>
       <td class="coluna-descricao-transacao">
        ${receita.descricao}
@@ -131,8 +131,8 @@
       </td>
     </tr>`;
   }
-  var renderizarReceitas = function () {
-    var receitasAgrupadas = agrupar(receitas, 'data');
+  const renderizarReceitas = function () {
+    const receitasAgrupadas = agrupar(receitas, 'data');
     elementos.receita.tabela.innerHTML = "";
     Object.keys(receitasAgrupadas)
       .sort(ordernarPorDataMaisRecente)
@@ -147,14 +147,13 @@
       });
   }
 
-  var obterCategoria = function (identificador) {
+  const obterCategoria = function (identificador) {
     return categorias.find(function (categoria) {
       return categoria.identificador == identificador;
     });
  }
-  var renderizarDespesa = function (despesa) {
-    var descricaoCategoria = obterCategoria(despesa.categoria).descricao;  
-    
+ const renderizarDespesa = function (despesa) {
+  const descricaoCategoria = obterCategoria(despesa.categoria).descricao;      
     return `<tr>
         <td class="coluna-descricao-transacao">
         ${despesa.descricao}
@@ -165,8 +164,8 @@
         </td>
       </tr>`;
   }
-  var renderizarDespesas = function () {
-    var despesasAgrupadas = agrupar(despesas, 'data');
+  const renderizarDespesas = function () {
+    const despesasAgrupadas = agrupar(despesas, 'data');
     elementos.despesa.tabela.innerHTML = "";
     Object.keys(despesasAgrupadas)
       .sort(ordernarPorDataMaisRecente)
@@ -181,8 +180,8 @@
       });
   }
 
-  var calcularTotais = function(totais) {
-    var totaisDespesas = despesas.reduce(function (acumulador, despesaAtual) {
+  const calcularTotais = function(totais) {
+    const totaisDespesas = despesas.reduce(function (acumulador, despesaAtual) {
       if (!acumulador.hasOwnProperty(despesaAtual.categoria)) {
         acumulador[despesaAtual.categoria] = 0;
       }
@@ -193,7 +192,7 @@
       return acumulador;
     }, { despesas: 0 });
     
-    var totalReceita = receitas.reduce(function (acumulador, receita) {
+    const totalReceita = receitas.reduce(function (acumulador, receita) {
       acumulador += Number.parseFloat(receita.valor);
       return acumulador;
     }, 0);
@@ -205,8 +204,8 @@
     }, totaisDespesas);
   }
   
-  var renderizarProgressoCategoria = function (categoria, totais){
-    var totalCategoria = 0;
+  const renderizarProgressoCategoria = function (categoria, totais){
+    let totalCategoria = 0;
 
     if (totais.hasOwnProperty(categoria.identificador)) {
       totalCategoria = totais[categoria.identificador];
@@ -218,8 +217,8 @@
       </div>`
   }
 
-var renderizarColunaPrincipal = function(totais){
-  previstoDeDespesas = categorias.reduce(function (acumulador, categoria) {
+  const renderizarColunaPrincipal = function(totais){
+  const previstoDeDespesas = categorias.reduce(function (acumulador, categoria) {
     acumulador += categoria.previsto;
     return acumulador
   })
@@ -240,21 +239,21 @@ var renderizarColunaPrincipal = function(totais){
 
 }
   
-var renderizarColunaCategorias = function(totais){
+const renderizarColunaCategorias = function(totais){
   elementos.cabecalho.categorias.innerHTML = "";
   categorias.forEach(function (categoria) {
     elementos.cabecalho.categorias.innerHTML += renderizarProgressoCategoria(categoria, totais);
   })
   }
   
-  var renderizarItemVisaoGeral = function (item) {
+  const renderizarItemVisaoGeral = function (item) {
     return `<div class="visao-geral-container">
     <h5><span class="ofuscado">${item.descricao}></span></h5>
     <span class="texto-grande">${accounting.formatMoney(item.valor, "R$ ", 2, '.', ',')}</span>
   </div>`
   }  
   
-var renderizarVisaoGeral = function(totais){
+  const renderizarVisaoGeral = function(totais){
   elementos.cabecalho.visaoGeral.innerHTML = "";
 
   elementos.cabecalho.visaoGeral.innerHTML += renderizarItemVisaoGeral({
@@ -274,8 +273,8 @@ var renderizarVisaoGeral = function(totais){
 
 }
 
-  var renderizarCabecalho = function () {
-    var totais = calcularTotais();
+const renderizarCabecalho = function () {
+  const totais = calcularTotais();
     renderizarColunaPrincipal(totais);
     renderizarColunaCategorias(totais);
     renderizarVisaoGeral(totais);
@@ -283,9 +282,9 @@ var renderizarVisaoGeral = function(totais){
     elementos.cabecalho.saldo.innerHTML = accounting.formatMoney(totais.total, 'R$ ', 2, '.', ',');
   }
  
-  var receitas = receitasStore.listar();
+  let receitas = receitasStore.listar();
   renderizarReceitas();
-  var despesas = despesasStore.listar();
+  let despesas = despesasStore.listar();
   renderizarDespesas();  
   carregarSelectDeCategorias();
   renderizarCabecalho();
@@ -293,7 +292,7 @@ var renderizarVisaoGeral = function(totais){
   elementos.receita.form.onsubmit = function (event) {
     event.preventDefault();
 
-    var receita = {
+    const receita = {
       data: new Date(new Date().setHours(0,0,0,0)).toString()
     }
 
@@ -315,7 +314,7 @@ var renderizarVisaoGeral = function(totais){
   elementos.despesa.form.onsubmit = function (event) {
     event.preventDefault();
 
-    var despesa = {
+    const despesa = {
       data: new Date(new Date().setHours(0,0,0,0)).toString()
     }
 
