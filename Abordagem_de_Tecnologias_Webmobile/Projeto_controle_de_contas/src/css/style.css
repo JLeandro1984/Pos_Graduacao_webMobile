@@ -21,9 +21,30 @@ h5 {
 }
 
 #cabecalho {
-  background-color: #3183fe;
+  background-color: #318efe;
   color: #fff;
   padding: 20px;
+  text-transform: uppercase;
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 999;
+}
+
+#cabecalho .btn {
+  color: #fff;
+}
+
+#cabecalho .btn-redondo {
+  background-color: #2178e3;
+}
+
+#cabecalho-conteudo {
+  background-color: #318efe;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
   text-transform: uppercase;
 }
 
@@ -36,10 +57,29 @@ h5 {
   text-align: center;
 }
 
-#cabecalho-principal .fas {
-  font-size: 20px;
+#cabecalho-principal .container-direito {
+  display: flex;
+  justify-content: space-between;
 }
 
+#cabecalho-principal .container-direito #user-info p {
+  text-transform: none;
+  font-size: 0.9em;
+  padding-top: 5px;
+}
+
+#cabecalho-principal .container-direito .fas {
+  padding: 5px;
+}
+
+#cabecalho-principal .fas {
+  font-size: 20px;
+  color: #fff;
+}
+
+.coluna-conteudo {
+  margin: 20px 20px;
+}
 .btn {
   background-color: unset;
   border: 0;
@@ -49,39 +89,6 @@ h5 {
 .btn-redondo {
   border-radius: 50%;
   padding: 4px 9px;
-}
-
-#cabecalho .btn {
-  color: #fff;
-}
-
-#cabecalho .btn-redondo {
-  background-color: #2178e3;
-}
-
-#cabecalho-conteudo {
-  margin-top: 20px;
-  padding: 0 50px;
-  display: flex;
-}
-
-#progresso-principal,
-#progresso-categoria {
-  flex: 2;
-  padding: 5px;
-}
-
-#visao-geral {
-  flex: 1;
-  padding: 5px;
-}
-
-#visao-geral .visao-geral-container {
-  padding: 10px;
-}
-
-.ofuscado {
-  opacity: 0.8;
 }
 
 .texto-grande {
@@ -104,28 +111,50 @@ progress[value]::-webkit-progress-bar {
   border-radius: 10px;
 }
 
-progress[value]::-webkit-progress-value {
-  background-color: #fff;
-  border-radius: 10px;
-}
-
 progress[value]::-moz-progress-bar {
   background-color: #fff;
   border-radius: 10px;
 }
 
-#conteudo {
-  display: flex;
-  justify-content: center;
-  padding: 10px 50px;
+progress[value]::-webkit-progress-value {
+  background-color: #fff;
+  border-radius: 10px;
 }
 
-#conteudo .coluna-conteudo {
+#progresso-principal,
+#progresso-categoria {
+  flex: 2;
+  padding: 5px;
+}
+
+#visao-geral-numeros {
   flex: 1;
+  padding: 5px;
 }
 
-#conteudo .coluna-conteudo:first-child {
-  margin: 0 30px 0 10px;
+#visao-geral .visao-geral-container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+#visao-geral .visao-geral-container *:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.ofuscado {
+  opacity: 0.8;
+}
+
+#transacoes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 20px;
+}
+
+#transacoes-container .coluna-conteudo {
+  flex: 1;
 }
 
 .tabela-transacoes {
@@ -136,7 +165,7 @@ progress[value]::-moz-progress-bar {
   padding: 10px 0;
   border-bottom: 1px solid #ccc;
   color: #4b4b4d;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .tabela-transacoes td.coluna-descricao-transacao {
@@ -158,12 +187,21 @@ progress[value]::-moz-progress-bar {
   padding-bottom: 0;
 }
 
+#receitas {
+  margin-top: 20px;
+}
+
 #receitas .tabela-transacoes td.coluna-valor-transacao {
   color: #4ab24a;
 }
 
 #despesas .tabela-transacoes td.coluna-valor-transacao {
   color: #d01f1f;
+}
+
+#receitas .form-container,
+#despesas .form-container {
+  display: none;
 }
 
 .form-container {
@@ -180,15 +218,27 @@ progress[value]::-moz-progress-bar {
 
 .form {
   display: flex;
+  flex-direction: column;
 }
 
-.form .linha-form:not(:last-child) {
-  margin-right: 15px;
+.form.inline {
+  flex-direction: row;
 }
+
+.form-inline-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-inline-container *:not(:last-child) {
+  margin-bottom: 10px;
+}
+
 .linha-form {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  margin-bottom: 10px;
 }
 
 .linha-form label {
@@ -197,7 +247,7 @@ progress[value]::-moz-progress-bar {
 
 .linha-form label,
 .linha-form select {
-  font-size: 0.9rem;
+  font-size: 0.9em;
 }
 
 .form button {
@@ -206,4 +256,179 @@ progress[value]::-moz-progress-bar {
   color: #fff;
   padding: 5px 10px;
   border-radius: 3px;
+}
+
+.botao-flutuante {
+  border: 0;
+  background-color: #2178e3;
+  border-radius: 50%;
+  padding: 10px 14px;
+  font-size: 28px;
+  color: #fff;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.titulo-centralizado {
+  text-align: center;
+}
+
+.botao-branco {
+  background-color: #fff;
+  border: 0;
+  color: #2178e3;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.close {
+  color: #fff;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 8px 20px;
+  background-color: #2178e3;
+  color: white;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.modal-body {
+  padding: 15px 20px;
+  padding-top: 100px;
+}
+
+.modal-footer {
+  padding: 8px 20px;
+  background-color: #2178e3;
+  color: white;
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+/* Add Animation */
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+#form-login input {
+  font-size: 1.1em;
+  padding: 5px;
+}
+
+#form-login label {
+  font-size: 1.1em;
+}
+
+#form-login .btn {
+  font-size: 1.1em;
+  padding: 8px 16px;
+}
+
+#form-login .form-inline-container {
+  justify-content: flex-end;
+}
+
+@media only screen and (min-width: 576px) {
+}
+
+@media only screen and (min-width: 768px) {
+  #cabecalho {
+    position: relative;
+    z-index: 1;
+  }
+  #cabecalho-conteudo {
+    flex-direction: row;
+    padding: 0 50px;
+  }
+  #transacoes-container {
+    flex-direction: row;
+    padding: 10px 50px;
+  }
+  .form-inline-container {
+    flex-direction: row;
+  }
+  .form-inline-container *:not(:last-child) {
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+  #receitas .form-container,
+  #despesas .form-container {
+    display: block;
+  }
+  .form.inline .linha-form:not(:last-child) {
+    margin-right: 15px;
+  }
+  .botao-flutuante {
+    display: none;
+  }
+  #conteudo .coluna-conteudo:first-child {
+    margin-right: 50px;
+  }
+  #receitas {
+    margin-top: 0;
+  }
+
+  .modal-content {
+    width: 520px;
+    height: auto;
+  }
+
+  .modal {
+    padding-top: 100px;
+  }
+
+  .modal-body {
+    padding: 15px 20px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+}
+
+@media only screen and (min-width: 1200px) {
 }
