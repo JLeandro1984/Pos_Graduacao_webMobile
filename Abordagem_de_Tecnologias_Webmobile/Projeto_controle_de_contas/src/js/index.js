@@ -8,21 +8,22 @@ import adicionarHandlersModal from './modal';
 
 (async () => {
   const firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    databaseURL: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
+    apiKey: "AIzaSyDDOZQJ0TwBEvl69Nw7FIQhCYcGnuHB1HM",
+    authDomain: "orcamento-pessoal-jl281084.firebaseapp.com",
+    projectId: "orcamento-pessoal-jl281084",
+    storageBucket: "orcamento-pessoal-jl281084.firebasestorage.app",
+    messagingSenderId: "1082073405410",
+    appId: "1:1082073405410:web:4bf72d77065a80d5698bbb",
+    measurementId: "G-92CH98CTT4"
   };
+  
 
-  if ('serviceWorker' in navigator) {
-    // Use the window load event to keep the page load performant
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js');
-    });
-  }
+  // if ('serviceWorker' in navigator) {
+  //   // Use the window load event to keep the page load performant
+  //   window.addEventListener('load', () => {
+  //     navigator.serviceWorker.register('/service-worker.js');
+  //   });
+  // }
 
   firebase.initializeApp(firebaseConfig);
 
@@ -32,7 +33,6 @@ import adicionarHandlersModal from './modal';
       bloquearModal: true
     }
   );
-
 
   const obterElementos = () => {
     const formReceita = document.getElementById('form-adicionar-receita');
